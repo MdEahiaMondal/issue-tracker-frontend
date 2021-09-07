@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Login from '../views/Login.vue'
 import Dashboard from '../views/Dashboard.vue'
 import About from '../views/About.vue'
 
@@ -18,7 +19,7 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: Home,
+    component: Login,
     meta: {
       middlwares: [Middlewares.guest]
     }

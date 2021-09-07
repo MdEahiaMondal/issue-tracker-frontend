@@ -1,33 +1,45 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-      <button class="font-bold" @click="logout" v-if="isLogin"> | Logout</button>
-      <button class="font-bold" v-if="isLogin"> | Dashboard</button>
+      <router-link to="/">Home </router-link> |
+      <router-link to="/about">About </router-link>
+      <router-link v-if="!isLoggedIn" to="/login"> | Login </router-link>
+      <button class="font-bold" @click="logoutUser" v-if="isLoggedIn"> | Logout  </button>
+      <button class="font-bold" v-if="isLoggedIn"> | Dashboard </button>
     </div>
     <router-view/>
   </div>
 </template>
 
 <script>
+import {mapState, mapActions} from 'vuex'
 export default {
   name: 'app',
   data(){
-    return {
-      isLogin: false
-    }
+    return {}
+  },
+  computed: {
+    ...mapState('user', {
+      isLoggedIn: 'isLoggedIn'
+    }),
   },
   created(){
     if (localStorage.getItem('token')){
-      this.isLogin = true
+      this.setUserIsLoggedIn(true)
+    }else{
+      this.setUserIsLoggedIn(false)
     }
   },
   methods: {
-    logout(){
-      localStorage.removeItem('token')
-      this.$router.push({name: 'login'})
-      this.isLogin = false
+    ...mapActions({
+      logout: 'user/logout',
+      setUserIsLoggedIn: 'user/setUserIsLoggedIn'
+    }),
+    logoutUser(){
+      this.logout()
+      .then(res => {
+        this.$router.push({name: 'login'})
+      })
     }
   }
 }

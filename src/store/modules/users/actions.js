@@ -25,3 +25,29 @@ export const logout = ({commit}) => {
     resolve(true)
   })
 }
+
+export const forgotPassword = ({commit}, payload) => {
+  return new Promise((resolve, reject) => {
+    axios.post(' http://127.0.0.1:8000/api/password/forgot/', payload)
+      .then(res => {
+        resolve(res)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
+
+
+export const resetPassword = ({commit}, payload) => {
+  return new Promise((resolve, reject) => {
+    axios.post(' http://127.0.0.1:8000/api/password/reset/', payload)
+      .then(res => {
+        resolve(res)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
+

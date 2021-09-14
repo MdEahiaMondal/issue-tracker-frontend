@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
+import Register from '../views/Register.vue'
 import Dashboard from '../views/Dashboard.vue'
 import ForgotPassword from '../views/ForgotPassword.vue'
 import ResetPassword from '../views/ResetPassword.vue'
@@ -22,6 +23,14 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login,
+    meta: {
+      middlwares: [Middlewares.guest]
+    }
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: Register,
     meta: {
       middlwares: [Middlewares.guest]
     }

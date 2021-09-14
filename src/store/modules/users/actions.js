@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../../../axios/index'
 
 export const setUserIsLoggedIn = ({commit}, payload) => {
   commit('SET_USER_IS_LOGGED_IN', payload)
@@ -6,10 +6,21 @@ export const setUserIsLoggedIn = ({commit}, payload) => {
 
 export const login = ({commit}, payload) => {
   return new Promise((resolve, reject) => {
-    axios.post(' http://127.0.0.1:8000/api/login/', payload)
+    axios.post('login/', payload)
       .then(res => {
         localStorage.setItem('token', res.data.access_token)
         commit('SET_USER_IS_LOGGED_IN', true)
+        resolve(res)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
+export const register = ({commit}, payload) => {
+  return new Promise((resolve, reject) => {
+    axios.post('register/', payload)
+      .then(res => {
         resolve(res)
       })
       .catch(error => {
@@ -28,7 +39,19 @@ export const logout = ({commit}) => {
 
 export const forgotPassword = ({commit}, payload) => {
   return new Promise((resolve, reject) => {
-    axios.post(' http://127.0.0.1:8000/api/password/forgot/', payload)
+    axios.post('password/forgot/', payload)
+      .then(res => {
+        resolve(res)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
+
+export const resetPassword = ({commit}, payload) => {
+  return new Promise((resolve, reject) => {
+    axios.post('password/reset/', payload)
       .then(res => {
         resolve(res)
       })
@@ -39,10 +62,11 @@ export const forgotPassword = ({commit}, payload) => {
 }
 
 
-export const resetPassword = ({commit}, payload) => {
+export const setAuthUser = ({commit}, payload) => {
   return new Promise((resolve, reject) => {
-    axios.post(' http://127.0.0.1:8000/api/password/reset/', payload)
+    axios.get('me')
       .then(res => {
+        commit('SET_AUTH_USER', res.data.data)
         resolve(res)
       })
       .catch(error => {

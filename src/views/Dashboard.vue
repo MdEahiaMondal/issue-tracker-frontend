@@ -5,8 +5,17 @@
 </template>
 
 <script>
+
+import {mapActions} from 'vuex'
+
 export default {
-    name: "Dashboard"
+    name: "Dashboard",
+  mounted(){
+      this.setAuthUser()
+  },
+  methods: {
+      ...mapActions('user', ['setAuthUser'])
+  }
 }
 </script>
 

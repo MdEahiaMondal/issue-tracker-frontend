@@ -1,13 +1,12 @@
 <template>
-  <div class="about">
-    <h1>This is an Dashboard page</h1>
+  <div id="appLayout">
+    <router-view/>
   </div>
 </template>
 
 <script>
-
 export default {
-  name: "Dashboard",
+    name: "AppLayout"
 }
 </script>
 

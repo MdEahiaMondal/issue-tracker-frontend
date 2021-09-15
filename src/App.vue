@@ -1,13 +1,17 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home </router-link> |
-      <router-link to="/about">About </router-link>
-      <router-link v-if="!isLoggedIn" to="/login"> | Login </router-link>
-      <router-link v-if="!isLoggedIn" to="/register"> | Register </router-link>
-      <router-link v-if="!isLoggedIn" to="/password/forgot"> | forgot pasword </router-link>
-      <button class="font-bold" @click="logoutUser" v-if="isLoggedIn"> | Logout  </button>
-      <button class="font-bold" v-if="isLoggedIn"> | Dashboard </button>
+    <div class="p-4 bg-red-400 flex items-center justify-between px-12 border-b-2 border-ash-400">
+      <div class="">
+        <router-link to="/" class="p-4 text-white font-bold text-2xl cursor-pointer">Home</router-link>
+      </div>
+      <div class="space-x-2">
+        <router-link v-if="!isLoggedIn" to="/register" class="p-4 text-white font-bold text-xl cursor-pointer">Register</router-link>
+        <router-link  v-if="!isLoggedIn" to="/login" class="p-4 text-white font-bold text-xl cursor-pointer">Login</router-link >
+        <router-link  v-if="!isLoggedIn" to="/password/forgot" class="p-4 text-white font-bold text-xl cursor-pointer">Forgot Password</router-link >
+        <router-link  v-if="isLoggedIn" to="/dashboard" class="p-4 text-white font-bold text-xl cursor-pointer">Dashboard</router-link >
+        <router-link  v-if="isLoggedIn" to="/profile" class="p-4 text-white font-bold text-xl cursor-pointer">Profile</router-link >
+        <button v-if="isLoggedIn" @click="logoutUser" class="p-4 text-white font-bold text-xl cursor-pointer">Logout</button>
+      </div>
     </div>
     <router-view/>
   </div>
@@ -31,11 +35,15 @@ export default {
     }else{
       this.setUserIsLoggedIn(false)
     }
+    if (this.isLoggedIn){
+      this.setAuthUser()
+    }
   },
   methods: {
     ...mapActions({
       logout: 'user/logout',
-      setUserIsLoggedIn: 'user/setUserIsLoggedIn'
+      setUserIsLoggedIn: 'user/setUserIsLoggedIn',
+      setAuthUser: 'user/setAuthUser'
     }),
     logoutUser(){
       this.logout()
@@ -55,16 +63,6 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
 #nav a.router-link-exact-active {
   color: #42b983;
 }

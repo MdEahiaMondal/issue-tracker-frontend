@@ -75,3 +75,28 @@ export const setAuthUser = ({commit}, payload) => {
   })
 }
 
+export const saveUserChange = ({commit}, payload) => {
+  return new Promise((resolve, reject) => {
+    axios.post('change-details', payload)
+      .then(res => {
+        commit('SET_AUTH_USER', res.data.data)
+        resolve(res)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
+
+export const passwordChange = ({commit}, payload) => {
+  return new Promise((resolve, reject) => {
+    axios.post('change-password', payload)
+      .then(res => {
+        resolve(res)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
+

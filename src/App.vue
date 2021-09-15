@@ -4,6 +4,8 @@
       <router-link to="/">Home </router-link> |
       <router-link to="/about">About </router-link>
       <router-link v-if="!isLoggedIn" to="/login"> | Login </router-link>
+      <router-link v-if="!isLoggedIn" to="/register"> | Register </router-link>
+      <router-link v-if="!isLoggedIn" to="/password/forgot"> | forgot pasword </router-link>
       <button class="font-bold" @click="logoutUser" v-if="isLoggedIn"> | Logout  </button>
       <button class="font-bold" v-if="isLoggedIn"> | Dashboard </button>
     </div>

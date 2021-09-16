@@ -19,7 +19,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'home',
     component: Home
   },
   {
@@ -78,7 +78,8 @@ const routes = [
         name: 'dashboard',
         component: Dashboard,
         meta: {
-          middlwares: [Middlewares.auth]
+          middlwares: [Middlewares.auth, Middlewares.checkPermissions],
+          permissions: ['developer-dashboard']
         }
       },
       {

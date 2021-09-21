@@ -17,6 +17,30 @@ export const login = ({commit}, payload) => {
       })
   })
 }
+export const loginByGithub = ({commit}) => {
+  return new Promise((resolve, reject) => {
+    axios.get('authorize/github/redirect/')
+      .then(res => {
+        resolve(res)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
+export const socialLogin = ({commit}, payload) => {
+  return new Promise((resolve, reject) => {
+    axios.get('authorize/github/callback', {
+      params: payload
+    })
+      .then(res => {
+        return
+      })
+      .catch(error => {
+        return
+      })
+  })
+}
 export const register = ({commit}, payload) => {
   return new Promise((resolve, reject) => {
     axios.post('register/', payload)

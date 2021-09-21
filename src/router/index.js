@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/layouts/auth/Login.vue'
+import socialLogin from '../views/layouts/auth/SocialLogin.vue'
 import Register from '../views/layouts/auth/Register.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Profile from '../views/Profile.vue'
@@ -30,6 +31,14 @@ const routes = [
         path: 'login',
         name: 'login',
         component: Login,
+        meta: {
+          middlwares: [Middlewares.guest]
+        }
+      },
+      {
+        path: 'authorize/:provider/callback',
+        name: 'socialLogin',
+        component: socialLogin,
         meta: {
           middlwares: [Middlewares.guest]
         }

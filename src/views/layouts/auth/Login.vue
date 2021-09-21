@@ -13,6 +13,7 @@
       </div>
 
       <button @click="loginUser" class="p-2 bg-white text-red-400 mt-3 rounded-full px-7">Login</button>
+      <button @click="gitHubLogin" class="p-2 bg-white text-red-400 mt-3 rounded-full px-7">Github</button>
     </div>
   </div>
 </template>
@@ -32,6 +33,7 @@ export default {
     ...mapActions({
       login: 'user/login',
       setUserIsLoggedIn: 'user/setUserIsLoggedIn',
+      loginByGithub: 'user/loginByGithub',
     }),
     loginUser() {
       this.login({
@@ -41,6 +43,14 @@ export default {
       .then(res =>{
         this.setUserIsLoggedIn(true)
         this.$router.replace('dashboard')
+      })
+    },
+    gitHubLogin(){
+      this.loginByGithub()
+      .then(res => {
+        if (res.data.success){
+          window.location.href = res.data.data.url
+        }
       })
     }
   }
